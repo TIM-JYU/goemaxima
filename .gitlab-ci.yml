@@ -2,9 +2,6 @@ stages:
   - steve
   - build_webservice
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
-
 # gitlab ci script taken from https://gist.github.com/danielneis/5c6140ec8150c6151a54bccd26950278
 
 steve_jobs:
@@ -25,6 +22,6 @@ build_webservice:
   tags:
     - docker
   before_script:
-    - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker login -u $DH_USER -p DH_TOKEN $DH_REGISTRY
   script:
-    - ./build.sh "$CI_REGISTRY" "$CI_COMMIT_TAG"
+    - ./build.sh "$DH_REGISTRY" "$CI_COMMIT_TAG"
