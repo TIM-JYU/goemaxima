@@ -1,10 +1,15 @@
-stages:
-  - steve
-  - build_webservice
+services:
+  - name: docker:19.03.12-dind
+    entrypoint: ["env", "-u", "DOCKER_HOST"]
+    command: ["dockerd-entrypoint.sh"]
 
 variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
+ 
+stages:
+  - steve
+  - build_webservice
 
 steve_jobs:
   stage: steve
@@ -19,7 +24,6 @@ steve_jobs:
     expire_in: 1 week
 
 build_webservice:
-  image: "docker:dind"
   stage: build_webservice
   tags:
     - docker
