@@ -22,6 +22,6 @@ build_webservice:
   tags:
     - docker
   before_script:
-    - docker login -u $DH_USER -p DH_TOKEN $DH_REGISTRY
+    - docker login -u $DH_USER -p $DH_TOKEN $DH_REGISTRY
   script:
     - ./build.sh "$DH_REGISTRY" "$CI_COMMIT_TAG"
