@@ -5,8 +5,6 @@ stages:
 steve_jobs:
   stage: steve
   image: golang
-  tags:
-    - docker
   script:
     - ./buildweb.sh
   artifacts:
@@ -15,18 +13,15 @@ steve_jobs:
     expire_in: 1 week
 
 build_webservice:
+  image: docker:19.03.12
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19.03.0-dind
+    - name: docker:19.03.12-dind
       entrypoint: ["env", "-u", "DOCKER_HOST"]
       command: ["dockerd-entrypoint.sh"]
-  image: docker:19.03.0
-  variables:
-    DOCKER_HOST: tcp://docker:2376
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
   stage: build_webservice
-  tags:
-    - docker
   before_script:
     - docker login -u $DH_USER -p $DH_TOKEN $DH_REGISTRY
   script:
