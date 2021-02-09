@@ -2,7 +2,9 @@ stages:
   - steve
   - build_webservice
 
-# gitlab ci script taken from https://gist.github.com/danielneis/5c6140ec8150c6151a54bccd26950278
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
 
 steve_jobs:
   stage: steve
@@ -17,7 +19,7 @@ steve_jobs:
     expire_in: 1 week
 
 build_webservice:
-  image: "docker:latest"
+  image: "docker:dind"
   stage: build_webservice
   tags:
     - docker
