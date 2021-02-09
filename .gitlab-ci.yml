@@ -23,6 +23,6 @@ build_webservice:
       command: ["dockerd-entrypoint.sh"]
   stage: build_webservice
   before_script:
-    - docker login -u $DH_USER -p $DH_TOKEN $DH_REGISTRY
+    - echo "$DH_TOKEN" | docker login --username $DH_USER --password-stdin
   script:
     - ./build.sh "$DH_REGISTRY" "$CI_COMMIT_TAG"
