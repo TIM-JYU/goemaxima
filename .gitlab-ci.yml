@@ -4,7 +4,7 @@ stages:
 
 steve_jobs:
   stage: steve
-  image: golang
+  image: golang:1.15
   script:
     - echo "Golang version is `go version`"
     - ./buildweb.sh
