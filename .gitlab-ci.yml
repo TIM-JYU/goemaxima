@@ -1,12 +1,11 @@
 stages:
-  - steve
   - build_webservice
+  - build_image
 
 steve_jobs:
-  stage: steve
+  stage: build_webservice
   image: golang:1.15
   script:
-    - echo "Golang version is `go version`"
     - ./buildweb.sh
   artifacts:
     paths:
@@ -14,15 +13,13 @@ steve_jobs:
     expire_in: 1 week
 
 build_webservice:
-  image: docker:19.03.12
-  variables:
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_TLS_CERTDIR: ""
+  stage: build_image
+  image: tmaier/docker-compose:latest
   services:
-    - name: docker:19.03.12-dind
-      entrypoint: ["env", "-u", "DOCKER_HOST"]
-      command: ["dockerd-entrypoint.sh"]
-  stage: build_webservice
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_CERTDIR: "/certs"
   before_script:
     - echo "$DH_TOKEN" | docker login --username $DH_USER --password-stdin
   script:
