@@ -1,6 +1,7 @@
 #!/bin/bash
 # arg1: stack or moodle version: "stack-XXX" or "moodlev.X"
 # arg2: REGISTRY or dockerhub id
+# arg3: If REGISTRY is specified, the tag to give to the image
 
 stackver="$1"
 if [ -z "$stackver" ]; then
