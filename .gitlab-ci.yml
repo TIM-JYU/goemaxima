@@ -6,6 +6,7 @@ steve_jobs:
   stage: steve
   image: golang
   script:
+    - echo "Golang version is `go version`"
     - ./buildweb.sh
   artifacts:
     paths:
