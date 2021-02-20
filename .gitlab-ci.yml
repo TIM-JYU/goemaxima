@@ -2,7 +2,7 @@ stages:
   - build_webservice
   - build_image
 
-steve_jobs:
+build_webservice:
   stage: build_webservice
   image: golang:1.15
   script:
@@ -12,7 +12,7 @@ steve_jobs:
     - bin/web
     expire_in: 1 week
 
-build_webservice:
+build_image:
   stage: build_image
   image: tmaier/docker-compose:latest
   services:
