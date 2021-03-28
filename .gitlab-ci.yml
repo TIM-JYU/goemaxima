@@ -4,7 +4,9 @@ stages:
 
 build_webservice:
   stage: build_webservice
-  image: golang:1.15
+  image: golang
+  variables:
+    GO111MODULE: auto
   script:
     - ./buildweb.sh
   artifacts:
